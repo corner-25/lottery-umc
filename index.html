@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quay Số Trúng Thưởng - Giao Ban Cuối Năm 2025 | BV ĐHYD TP.HCM</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎰</text></svg>">
+</head>
+<body>
+
+    <!-- Background particles -->
+    <div class="particles"></div>
+
+    <!-- ========== SETUP SCREEN ========== -->
+    <div class="header">
+        <img src="assets/logo.png" alt="Logo BV ĐHYD" class="header-logo">
+        <h1>Quay Số Trúng Thưởng</h1>
+        <p class="subtitle">Giao Ban Cuối Năm 2025 — Bệnh viện Đại học Y Dược TP. Hồ Chí Minh</p>
+    </div>
+
+    <div class="setup-panel">
+        <!-- Upload section -->
+        <div class="setup-section">
+            <h2>📋 Danh sách nhân viên</h2>
+            <div class="upload-area" id="uploadArea">
+                <div class="upload-icon">📁</div>
+                <p>Kéo thả file Excel vào đây hoặc <strong>click để chọn file</strong></p>
+                <p style="font-size:0.85rem; opacity:0.5; margin-top:8px;">Hỗ trợ: .xlsx, .xls, .csv</p>
+            </div>
+            <input type="file" class="file-input" id="fileInput" accept=".xlsx,.xls,.csv">
+        </div>
+
+        <!-- Prize config section -->
+        <div class="setup-section">
+            <h2>🏆 Cấu hình giải thưởng</h2>
+            <div class="prizes-list" id="prizesList"></div>
+            <button class="btn-add-prize" id="btnAddPrize">+ Thêm giải</button>
+        </div>
+
+        <!-- Start button -->
+        <div class="setup-section">
+            <button class="btn-start" id="btnStart" disabled>
+                Bắt Đầu Quay Số
+            </button>
+        </div>
+    </div>
+
+    <!-- ========== MAIN STAGE ========== -->
+    <div class="main-stage" id="mainStage">
+        <button class="btn-back" id="btnBack">← Quay lại</button>
+        <button class="btn-reset" id="btnReset">🔄 Reset</button>
+
+        <!-- Stage header with logo -->
+        <div class="stage-header">
+            <img src="assets/logo.png" alt="Logo" class="stage-logo">
+            <div class="stage-title">
+                <h1>Quay Số Trúng Thưởng</h1>
+                <p>Giao Ban Cuối Năm 2025 — BV Đại học Y Dược TP.HCM</p>
+            </div>
+        </div>
+
+        <!-- Prize tabs -->
+        <div class="prize-tabs" id="prizeTabs"></div>
+
+        <!-- Spinner -->
+        <div class="spinner-container">
+            <div class="current-prize-label" id="currentPrizeLabel">Giải Nhất</div>
+            <div class="spinner-display" id="spinnerDisplay"></div>
+
+            <!-- Winner reveal -->
+            <div class="winner-reveal" id="winnerReveal">
+                <div class="winner-code" id="winnerCode"></div>
+                <div class="winner-name" id="winnerName"></div>
+            </div>
+        </div>
+
+        <!-- Spin buttons -->
+        <div class="btn-spin-container">
+            <button class="btn-spin pulse" id="btnSpin">🎰 QUAY</button>
+            <button class="btn-spin-all" id="btnSpinAll">Quay hết giải này</button>
+        </div>
+
+        <!-- Info -->
+        <div style="text-align:center" id="remainingInfo"></div>
+
+        <!-- Results -->
+        <div class="results-panel">
+            <h2>📊 Kết Quả</h2>
+            <div class="results-grid" id="resultsGrid">
+                <p style="text-align:center; opacity:0.5;">Chưa có kết quả</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sound toggle -->
+    <button class="btn-sound" id="btnSound" title="Bật/tắt âm thanh">🔊</button>
+
+    <!-- Fullscreen hint -->
+    <div class="fullscreen-hint">Nhấn F11 để toàn màn hình</div>
+
+    <!-- Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+
+    <!-- App scripts -->
+    <script src="js/confetti.js"></script>
+    <script src="js/spinner.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
