@@ -54,7 +54,7 @@ class ConfettiManager {
     static launch(intensity = 'medium') {
         ConfettiManager.init();
 
-        const counts = { light: 120, medium: 240, heavy: 400 };
+        const counts = { light: 60, medium: 120, heavy: 200 };
         const count = counts[intensity] || 300;
         const colors = [
             '#FFD700', '#FF6347', '#FF4500', '#FF1493', '#00FF7F',
@@ -103,16 +103,14 @@ class ConfettiManager {
 
         // More explosion points spread across the screen
         const centerPoints = [
-            { x: window.innerWidth * 0.15, y: window.innerHeight * 0.25 },
-            { x: window.innerWidth * 0.4, y: window.innerHeight * 0.15 },
-            { x: window.innerWidth * 0.65, y: window.innerHeight * 0.2 },
-            { x: window.innerWidth * 0.85, y: window.innerHeight * 0.28 },
-            { x: window.innerWidth * 0.5, y: window.innerHeight * 0.35 },
+            { x: window.innerWidth * 0.2, y: window.innerHeight * 0.25 },
+            { x: window.innerWidth * 0.5, y: window.innerHeight * 0.2 },
+            { x: window.innerWidth * 0.8, y: window.innerHeight * 0.28 },
         ];
 
         centerPoints.forEach((center, batchIdx) => {
             setTimeout(() => {
-                const particleCount = 80 + Math.floor(Math.random() * 30);
+                const particleCount = 40 + Math.floor(Math.random() * 15);
                 for (let i = 0; i < particleCount; i++) {
                     const angle = (Math.PI * 2 * i) / particleCount + Math.random() * 0.3;
                     const speed = 4 + Math.random() * 10;
@@ -146,11 +144,9 @@ class ConfettiManager {
     }
 
     static celebration() {
-        // Mega celebration - confetti rain + fireworks waves (bớt 20%)
         ConfettiManager.launch('heavy');
-        setTimeout(() => ConfettiManager.fireworks(), 300);
-        setTimeout(() => ConfettiManager.launch('medium'), 1200);
-        setTimeout(() => ConfettiManager.fireworks(), 2000);
+        setTimeout(() => ConfettiManager.fireworks(), 400);
+        setTimeout(() => ConfettiManager.launch('light'), 1500);
     }
 
     static _animate() {
