@@ -23,21 +23,54 @@ const App = {
         'P14-092', 'P92-001', 'G14-313'
     ],
 
+    // Default employee names
+    defaultEmployeeNames: {
+        'N08-066': 'Nguyễn Thị Ngọc Diệu',
+        'J18-132': 'Nguyễn Thị Mỹ Hạnh',
+        'P07-188': 'Đỗ Hùng Cường',
+        'J25-189': 'Dương Hữu Quang',
+        'J25-170': 'Huỳnh Ngọc Thuỳ Trinh',
+        'P03-022': 'Khương Phú Đức',
+        'P13-093': 'Lê Đặng Thái Phong',
+        'J22-278': 'Lê Thị Như Trang',
+        'P14-294': 'Ngô Hoàng Xuyên',
+        'J23-081': 'Nguyễn Đoàn Vĩnh',
+        'P15-173': 'Nguyễn Hồ Đình Xuyên',
+        'J15-152': 'Nguyễn Lương Bảo Châu',
+        'P16-102': 'Nguyễn Ngọc Hải',
+        'J17-092': 'Nguyễn Ngọc Linh Ân',
+        'G04-144': 'Nguyễn Thanh Bình',
+        'P17-258': 'Nguyễn Thành Trung',
+        'J07-190': 'Nguyễn Thị Diệu Linh',
+        'J18-219': 'Nguyễn Thị Thảo Trang',
+        'J19-261': 'Nguyễn Thị Thu Thực',
+        'P11-166': 'Nguyễn Tuấn Hùng',
+        'P07-029': 'Nguyễn Văn Hùng',
+        'P15-179': 'Nguyễn Văn Thảo',
+        'P12-088': 'Phạm Hoàng Anh',
+        'J05-042': 'Thái Nguyễn Giang Thanh',
+        'P20-096': 'Trần Anh Dũng',
+        'P14-092': 'Trần Anh Tuấn',
+        'P92-001': 'Võ Thanh Dũng',
+        'G14-313': 'Vũ Thị Bích Thảo',
+    },
+
     // Default prizes
     defaultPrizes: [
-        { name: 'Giải Nhất', count: 3, color: '#FFD700' },
-        { name: 'Giải Nhì', count: 4, color: '#C0C0C0' },
-        { name: 'Giải Ba', count: 2, color: '#CD7F32' },
-        { name: 'Giải Tư', count: 5, color: '#4CAF50' },
-        { name: 'Giải Khuyến Khích', count: 5, color: '#2196F3' },
+        { name: 'Giải Nhất', count: 3, color: '#FFD700', colorLight: '#FFF2A8' },
+        { name: 'Giải Nhì', count: 4, color: '#D4D4D4', colorLight: '#F0F0F0' },
+        { name: 'Giải Ba', count: 2, color: '#DBA368', colorLight: '#F0CCA0' },
+        { name: 'Giải Tư', count: 5, color: '#8FBF9F', colorLight: '#C2E8D0' },
+        { name: 'Giải Khuyến Khích', count: 5, color: '#8BB8D9', colorLight: '#C0DDEF' },
     ],
 
     // ---- INITIALIZATION ----
     init() {
         this.prizes = JSON.parse(JSON.stringify(this.defaultPrizes));
 
-        // Load default employees
+        // Load default employees and names
         this.employees = [...this.defaultEmployees];
+        this.employeeNames = { ...this.defaultEmployeeNames };
         const uploadArea = document.getElementById('uploadArea');
         uploadArea.classList.add('has-file');
         uploadArea.innerHTML = `
@@ -229,11 +262,21 @@ const App = {
     },
 
     addPrize() {
-        const colors = ['#FFD700', '#C0C0C0', '#CD7F32', '#4CAF50', '#2196F3', '#FF5722', '#9C27B0', '#E91E63'];
+        const colorPairs = [
+            { color: '#FFD700', colorLight: '#FFF2A8' },
+            { color: '#D4D4D4', colorLight: '#F0F0F0' },
+            { color: '#DBA368', colorLight: '#F0CCA0' },
+            { color: '#8FBF9F', colorLight: '#C2E8D0' },
+            { color: '#8BB8D9', colorLight: '#C0DDEF' },
+            { color: '#D4917A', colorLight: '#F0BCA8' },
+            { color: '#B898C8', colorLight: '#D8C4E8' },
+            { color: '#D4849A', colorLight: '#F0B0C0' },
+        ];
+        const pair = colorPairs[this.prizes.length % colorPairs.length];
         this.prizes.push({
             name: 'Giải mới',
             count: 1,
-            color: colors[this.prizes.length % colors.length]
+            ...pair
         });
         this.renderPrizes();
     },
@@ -330,6 +373,8 @@ const App = {
             const tab = document.createElement('button');
             tab.className = 'prize-tab';
             tab.dataset.index = index;
+            tab.style.setProperty('--tab-color', prize.color);
+            tab.style.setProperty('--tab-color-light', prize.colorLight || prize.color);
 
             const remaining = prize.count - (this.results[prize.name] || []).length;
             tab.innerHTML = `${prize.name}`;
@@ -359,8 +404,10 @@ const App = {
         // Update prize label
         const prize = this.prizes[index];
         const remaining = prize.count - (this.results[prize.name] || []).length;
-        document.getElementById('currentPrizeLabel').textContent = prize.name;
-        document.getElementById('currentPrizeLabel').style.color = prize.color;
+        const label = document.getElementById('currentPrizeLabel');
+        label.textContent = prize.name;
+        label.style.setProperty('--prize-color', prize.color);
+        label.style.setProperty('--prize-color-light', prize.colorLight || prize.color);
 
         // Update buttons
         const allDone = remaining <= 0;
@@ -418,7 +465,7 @@ const App = {
         document.getElementById('winnerReveal').style.display = 'none';
 
         // Play drumroll
-        SoundManager.playDrumroll(4);
+        SoundManager.playDrumroll(3.2);
 
         // Spin!
         this.spinner.spin(winner, (result) => {
@@ -428,8 +475,9 @@ const App = {
             this.wonEmployees.add(winner);
             this.results[prize.name].push(winner);
 
-            // Show winner
-            this.showWinner(winner, prize);
+            // Show code on screen (no name) + popup for single spin
+            this.showWinnerCode(winner, prize);
+            this.showCongratsPopup(winner, prize);
 
             // Update UI
             this.renderPrizeTabs();
@@ -451,18 +499,19 @@ const App = {
         });
     },
 
+    // Quay 1 lần (dùng cho spinAll) - chỉ hiện mã, không popup
     _spinOnceAsync() {
         return new Promise((resolve) => {
             const prize = this.prizes[this.currentPrizeIndex];
             const prizeResults = this.results[prize.name] || [];
             if (prizeResults.length >= prize.count) {
-                resolve(false);
+                resolve(null);
                 return;
             }
 
             const winner = this.getRandomEmployee();
             if (!winner) {
-                resolve(false);
+                resolve(null);
                 return;
             }
 
@@ -472,13 +521,15 @@ const App = {
             document.getElementById('winnerReveal').classList.remove('active');
             document.getElementById('winnerReveal').style.display = 'none';
 
-            SoundManager.playDrumroll(4);
+            SoundManager.playDrumroll(3.2);
 
             this.spinner.spin(winner, () => {
                 this.isSpinning = false;
                 this.wonEmployees.add(winner);
                 this.results[prize.name].push(winner);
-                this.showWinner(winner, prize);
+
+                // Chỉ hiện mã trên màn hình, KHÔNG popup
+                this.showWinnerCode(winner, prize);
                 this.renderPrizeTabs();
                 this.renderResults();
 
@@ -494,7 +545,7 @@ const App = {
                     <span class="remaining-count">Còn lại: ${availableCount} nhân viên</span>
                 `;
 
-                resolve(true);
+                resolve(winner);
             });
         });
     },
@@ -508,40 +559,104 @@ const App = {
 
         document.getElementById('btnSpinAll').disabled = true;
 
+        const allWinners = [];
         for (let i = 0; i < remaining; i++) {
-            const success = await this._spinOnceAsync();
-            if (!success) break;
-            // Pause between spins to show result
+            const winner = await this._spinOnceAsync();
+            if (!winner) break;
+            allWinners.push(winner);
+            // Pause ngắn giữa các lượt quay
             if (i < remaining - 1) {
-                await new Promise(r => setTimeout(r, 1500));
+                await new Promise(r => setTimeout(r, 1200));
             }
+        }
+
+        // Quay xong hết -> popup tất cả người trúng
+        if (allWinners.length > 0) {
+            await new Promise(r => setTimeout(r, 800));
+            ConfettiManager.celebration();
+            this.showCongratsPopupAll(allWinners, prize);
         }
     },
 
-    showWinner(code, prize) {
+    // Hiển thị mã trên màn hình chính (chỉ mã, không tên)
+    showWinnerCode(code, prize) {
         const reveal = document.getElementById('winnerReveal');
-        const nameStr = this.employeeNames[code] ? ` - ${this.employeeNames[code]}` : '';
-
         document.getElementById('winnerCode').textContent = code;
-        document.getElementById('winnerName').textContent = nameStr;
+        document.getElementById('winnerName').textContent = '';
 
         reveal.style.display = 'block';
-        // Force reflow for animation
         reveal.offsetHeight;
         reveal.classList.add('active');
 
-        // Effects
         SoundManager.playWin();
 
-        // Different effects based on prize tier
         const prizeIndex = this.prizes.indexOf(prize);
         if (prizeIndex === 0) {
-            ConfettiManager.celebration(); // Giải nhất -> full celebration
+            ConfettiManager.celebration();
         } else if (prizeIndex <= 1) {
             ConfettiManager.fireworks();
         } else {
             ConfettiManager.launch('medium');
         }
+    },
+
+    // Popup chúc mừng cho 1 người (quay đơn) - layout lớn, nổi bật
+    showCongratsPopup(code, prize) {
+        const existing = document.getElementById('congratsPopup');
+        if (existing) existing.remove();
+
+        const name = this.employeeNames[code] || '';
+        const popup = document.createElement('div');
+        popup.id = 'congratsPopup';
+        popup.className = 'congrats-popup';
+
+        popup.innerHTML = `
+            <div class="congrats-overlay"></div>
+            <div class="congrats-card congrats-card-single">
+                <div class="congrats-emoji">🎉</div>
+                <div class="congrats-title">CHÚC MỪNG!</div>
+                <div class="congrats-prize" style="--prize-color:${prize.color};--prize-color-light:${prize.colorLight || prize.color}">${prize.name}</div>
+                <div class="congrats-single-winner">
+                    <div class="congrats-single-code">${code}</div>
+                    ${name ? `<div class="congrats-single-name">${name}</div>` : ''}
+                </div>
+                <button class="congrats-close" onclick="document.getElementById('congratsPopup').remove()">Đóng</button>
+            </div>
+        `;
+
+        document.body.appendChild(popup);
+    },
+
+    // Popup chúc mừng cho nhiều người (quay hết giải) - layout danh sách
+    showCongratsPopupAll(winners, prize) {
+        const existing = document.getElementById('congratsPopup');
+        if (existing) existing.remove();
+
+        const popup = document.createElement('div');
+        popup.id = 'congratsPopup';
+        popup.className = 'congrats-popup';
+
+        let winnersHtml = winners.map(code => {
+            const name = this.employeeNames[code] || '';
+            const nameDisplay = name ? `<span class="congrats-item-name">${name}</span>` : '';
+            return `<div class="congrats-winner-item">
+                <span class="congrats-item-code">${code}</span>
+                ${nameDisplay}
+            </div>`;
+        }).join('');
+
+        popup.innerHTML = `
+            <div class="congrats-overlay"></div>
+            <div class="congrats-card">
+                <div class="congrats-emoji">🎉</div>
+                <div class="congrats-title">CHÚC MỪNG!</div>
+                <div class="congrats-prize" style="--prize-color:${prize.color};--prize-color-light:${prize.colorLight || prize.color}">${prize.name}</div>
+                <div class="congrats-winners-list">${winnersHtml}</div>
+                <button class="congrats-close" onclick="document.getElementById('congratsPopup').remove()">Đóng</button>
+            </div>
+        `;
+
+        document.body.appendChild(popup);
     },
 
     moveToNextPrize() {
@@ -579,7 +694,7 @@ const App = {
             }).join('');
 
             group.innerHTML = `
-                <h3 style="color:${prize.color}">${prize.name} (${winners.length}/${prize.count})</h3>
+                <h3 style="--prize-color:${prize.color};--prize-color-light:${prize.colorLight || prize.color}">${prize.name} (${winners.length}/${prize.count})</h3>
                 ${winnersHtml}
             `;
 

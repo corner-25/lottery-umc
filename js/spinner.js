@@ -78,10 +78,10 @@ class Spinner {
             this._startReel(slot, index);
         });
 
-        // Stop reels one by one with delay — chậm hơn, hồi hộp hơn
+        // Stop reels one by one with delay
         this.slots.forEach((slot, index) => {
             const targetCharIdx = this._charIndex(this.result[index]);
-            const delay = 2500 + (index * 800); // Chậm hơn: 2.5s + 0.8s mỗi slot
+            const delay = 2000 + (index * 640); // Nhanh hơn 20%
 
             setTimeout(() => {
                 this._stopReel(slot, index, targetCharIdx);
@@ -120,7 +120,7 @@ class Spinner {
         let currentPos = spinData.position;
         let speed = spinData.speed;
         const decelerate = () => {
-            speed *= 0.95; // Giảm tốc chậm hơn → hồi hộp hơn
+            speed *= 0.93; // Giảm tốc nhanh hơn 20%
             currentPos -= speed;
 
             if (speed < 1) {
@@ -150,7 +150,7 @@ class Spinner {
     }
 
     _animateToPosition(reel, fromPos, toPos, callback) {
-        const duration = 600;
+        const duration = 480; // Nhanh hơn 20%
         const startTime = performance.now();
 
         const easeOutBounce = (t) => {

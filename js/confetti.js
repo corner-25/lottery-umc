@@ -248,7 +248,8 @@ class ConfettiManager {
 
 class BackgroundParticles {
     static init(container) {
-        for (let i = 0; i < 30; i++) {
+        // Gold particles (giữ lại)
+        for (let i = 0; i < 15; i++) {
             const particle = document.createElement('div');
             particle.className = 'particle';
             particle.style.left = Math.random() * 100 + '%';
@@ -257,6 +258,30 @@ class BackgroundParticles {
             particle.style.width = (2 + Math.random() * 4) + 'px';
             particle.style.height = particle.style.width;
             container.appendChild(particle);
+        }
+
+        // Hoa mai + hoa đào rơi
+        const petalTypes = ['petal-mai', 'petal-dao', 'petal-mai', 'petal-dao', 'petal-mai-full'];
+        for (let i = 0; i < 25; i++) {
+            const petal = document.createElement('div');
+            const type = petalTypes[Math.floor(Math.random() * petalTypes.length)];
+            petal.className = 'petal ' + type;
+            petal.style.left = Math.random() * 100 + '%';
+            petal.style.animationDelay = Math.random() * 12 + 's';
+            petal.style.animationDuration = (8 + Math.random() * 8) + 's';
+
+            const scale = 0.6 + Math.random() * 0.8;
+            petal.style.setProperty('--scale', scale);
+            if (type !== 'petal-mai-full') {
+                petal.style.width = (8 + Math.random() * 6) * scale + 'px';
+                petal.style.height = (10 + Math.random() * 6) * scale + 'px';
+            } else {
+                const s = (14 + Math.random() * 8) * scale;
+                petal.style.width = s + 'px';
+                petal.style.height = s + 'px';
+            }
+
+            container.appendChild(petal);
         }
     }
 }

@@ -1,0 +1,208 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <defs>
+    <!-- Background gradient - đỏ mận trầm ấm -->
+    <radialGradient id="bg" cx="50%" cy="40%" r="70%">
+      <stop offset="0%" stop-color="#4A1225"/>
+      <stop offset="40%" stop-color="#3A0E1E"/>
+      <stop offset="100%" stop-color="#1E0610"/>
+    </radialGradient>
+
+    <!-- Warm glow at top -->
+    <radialGradient id="glow1" cx="30%" cy="15%" r="45%">
+      <stop offset="0%" stop-color="#7B2240" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#7B2240" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Warm glow at bottom right -->
+    <radialGradient id="glow2" cx="75%" cy="85%" r="40%">
+      <stop offset="0%" stop-color="#6B1530" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#6B1530" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Gold soft glow center -->
+    <radialGradient id="goldGlow" cx="50%" cy="35%" r="35%">
+      <stop offset="0%" stop-color="#DAA520" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="#DAA520" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Hoa mai 5 cánh - vàng -->
+    <g id="hoaMai">
+      <ellipse cx="0" cy="-8" rx="3.5" ry="7" fill="#FFD700" opacity="0.75" transform="rotate(0)"/>
+      <ellipse cx="0" cy="-8" rx="3.5" ry="7" fill="#FFD700" opacity="0.75" transform="rotate(72)"/>
+      <ellipse cx="0" cy="-8" rx="3.5" ry="7" fill="#FFD700" opacity="0.75" transform="rotate(144)"/>
+      <ellipse cx="0" cy="-8" rx="3.5" ry="7" fill="#FFD700" opacity="0.75" transform="rotate(216)"/>
+      <ellipse cx="0" cy="-8" rx="3.5" ry="7" fill="#FFD700" opacity="0.75" transform="rotate(288)"/>
+      <circle cx="0" cy="0" r="2.5" fill="#FFA500" opacity="0.9"/>
+    </g>
+
+    <!-- Hoa mai nhỏ -->
+    <g id="hoaMaiSmall">
+      <ellipse cx="0" cy="-5" rx="2.2" ry="4.5" fill="#FFD700" opacity="0.55" transform="rotate(0)"/>
+      <ellipse cx="0" cy="-5" rx="2.2" ry="4.5" fill="#FFD700" opacity="0.55" transform="rotate(72)"/>
+      <ellipse cx="0" cy="-5" rx="2.2" ry="4.5" fill="#FFD700" opacity="0.55" transform="rotate(144)"/>
+      <ellipse cx="0" cy="-5" rx="2.2" ry="4.5" fill="#FFD700" opacity="0.55" transform="rotate(216)"/>
+      <ellipse cx="0" cy="-5" rx="2.2" ry="4.5" fill="#FFD700" opacity="0.55" transform="rotate(288)"/>
+      <circle cx="0" cy="0" r="1.5" fill="#FFA500" opacity="0.7"/>
+    </g>
+
+    <!-- Hoa đào 5 cánh - hồng -->
+    <g id="hoaDao">
+      <ellipse cx="0" cy="-7" rx="3.2" ry="6.5" fill="#FFB7C5" opacity="0.6" transform="rotate(0)"/>
+      <ellipse cx="0" cy="-7" rx="3.2" ry="6.5" fill="#FFB7C5" opacity="0.6" transform="rotate(72)"/>
+      <ellipse cx="0" cy="-7" rx="3.2" ry="6.5" fill="#FFB7C5" opacity="0.6" transform="rotate(144)"/>
+      <ellipse cx="0" cy="-7" rx="3.2" ry="6.5" fill="#FFB7C5" opacity="0.6" transform="rotate(216)"/>
+      <ellipse cx="0" cy="-7" rx="3.2" ry="6.5" fill="#FFB7C5" opacity="0.6" transform="rotate(288)"/>
+      <circle cx="0" cy="0" r="2" fill="#FF8FAB" opacity="0.8"/>
+    </g>
+
+    <!-- Hoa đào nhỏ -->
+    <g id="hoaDaoSmall">
+      <ellipse cx="0" cy="-4.5" rx="2" ry="4" fill="#FFB7C5" opacity="0.45" transform="rotate(0)"/>
+      <ellipse cx="0" cy="-4.5" rx="2" ry="4" fill="#FFB7C5" opacity="0.45" transform="rotate(72)"/>
+      <ellipse cx="0" cy="-4.5" rx="2" ry="4" fill="#FFB7C5" opacity="0.45" transform="rotate(144)"/>
+      <ellipse cx="0" cy="-4.5" rx="2" ry="4" fill="#FFB7C5" opacity="0.45" transform="rotate(216)"/>
+      <ellipse cx="0" cy="-4.5" rx="2" ry="4" fill="#FFB7C5" opacity="0.45" transform="rotate(288)"/>
+      <circle cx="0" cy="0" r="1.3" fill="#FF8FAB" opacity="0.6"/>
+    </g>
+
+    <!-- Bokeh circle -->
+    <radialGradient id="bokeh">
+      <stop offset="0%" stop-color="#FFD700" stop-opacity="0.15"/>
+      <stop offset="70%" stop-color="#FFD700" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#FFD700" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Bokeh hồng -->
+    <radialGradient id="bokehPink">
+      <stop offset="0%" stop-color="#FFB7C5" stop-opacity="0.1"/>
+      <stop offset="70%" stop-color="#FFB7C5" stop-opacity="0.03"/>
+      <stop offset="100%" stop-color="#FFB7C5" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Base background -->
+  <rect width="1920" height="1080" fill="url(#bg)"/>
+
+  <!-- Warm glows -->
+  <rect width="1920" height="1080" fill="url(#glow1)"/>
+  <rect width="1920" height="1080" fill="url(#glow2)"/>
+  <rect width="1920" height="1080" fill="url(#goldGlow)"/>
+
+  <!-- Bokeh light effects - vàng -->
+  <circle cx="200" cy="150" r="80" fill="url(#bokeh)"/>
+  <circle cx="1700" cy="200" r="100" fill="url(#bokeh)"/>
+  <circle cx="400" cy="900" r="60" fill="url(#bokeh)"/>
+  <circle cx="1500" cy="850" r="90" fill="url(#bokeh)"/>
+  <circle cx="960" cy="100" r="120" fill="url(#bokeh)"/>
+  <circle cx="150" cy="540" r="70" fill="url(#bokeh)"/>
+  <circle cx="1800" cy="600" r="75" fill="url(#bokeh)"/>
+  <circle cx="700" cy="200" r="50" fill="url(#bokeh)"/>
+  <circle cx="1200" cy="900" r="65" fill="url(#bokeh)"/>
+
+  <!-- Bokeh hồng -->
+  <circle cx="300" cy="250" r="90" fill="url(#bokehPink)"/>
+  <circle cx="1600" cy="300" r="70" fill="url(#bokehPink)"/>
+  <circle cx="1100" cy="150" r="80" fill="url(#bokehPink)"/>
+  <circle cx="500" cy="800" r="60" fill="url(#bokehPink)"/>
+  <circle cx="1750" cy="750" r="75" fill="url(#bokehPink)"/>
+
+  <!-- ===== CÀNH MAI - GÓC TRÁI TRÊN ===== -->
+  <g opacity="0.5">
+    <path d="M-10,0 Q60,80 120,200 Q140,260 130,320" fill="none" stroke="#8B6914" stroke-width="3" opacity="0.5"/>
+    <path d="M60,110 Q90,90 130,60" fill="none" stroke="#8B6914" stroke-width="2" opacity="0.4"/>
+    <path d="M90,170 Q120,140 160,120" fill="none" stroke="#8B6914" stroke-width="1.5" opacity="0.35"/>
+    <path d="M100,200 Q70,180 40,200" fill="none" stroke="#8B6914" stroke-width="1.5" opacity="0.35"/>
+  </g>
+  <!-- Hoa mai trên cành trái -->
+  <use href="#hoaMai" transform="translate(55,85) scale(1.8)"/>
+  <use href="#hoaMai" transform="translate(100,165) scale(1.5)"/>
+  <use href="#hoaMai" transform="translate(125,250) scale(1.3)"/>
+  <use href="#hoaMaiSmall" transform="translate(130,60) scale(1.4)"/>
+  <use href="#hoaMaiSmall" transform="translate(160,120) scale(1.1)"/>
+  <use href="#hoaMaiSmall" transform="translate(40,200) scale(1.0)"/>
+  <use href="#hoaMaiSmall" transform="translate(80,40) scale(0.9)"/>
+  <use href="#hoaMaiSmall" transform="translate(25,140) scale(0.8)"/>
+
+  <!-- ===== CÀNH ĐÀO - GÓC PHẢI TRÊN ===== -->
+  <g opacity="0.45">
+    <path d="M1930,20 Q1860,100 1810,200 Q1790,260 1800,300" fill="none" stroke="#6B3A3A" stroke-width="2.5" opacity="0.45"/>
+    <path d="M1860,110 Q1830,80 1790,50" fill="none" stroke="#6B3A3A" stroke-width="1.8" opacity="0.35"/>
+    <path d="M1830,170 Q1800,150 1760,140" fill="none" stroke="#6B3A3A" stroke-width="1.5" opacity="0.3"/>
+  </g>
+  <!-- Hoa đào trên cành phải -->
+  <use href="#hoaDao" transform="translate(1860,90) scale(1.7)"/>
+  <use href="#hoaDao" transform="translate(1815,180) scale(1.4)"/>
+  <use href="#hoaDao" transform="translate(1800,265) scale(1.2)"/>
+  <use href="#hoaDaoSmall" transform="translate(1790,50) scale(1.3)"/>
+  <use href="#hoaDaoSmall" transform="translate(1760,140) scale(1.1)"/>
+  <use href="#hoaDaoSmall" transform="translate(1840,40) scale(1.0)"/>
+  <use href="#hoaDaoSmall" transform="translate(1895,150) scale(0.9)"/>
+
+  <!-- ===== GÓC TRÁI DƯỚI - Hoa mai + đào ===== -->
+  <g opacity="0.4">
+    <path d="M-5,1080 Q50,1000 100,900 Q120,860 110,820" fill="none" stroke="#8B6914" stroke-width="2.5" opacity="0.4"/>
+    <path d="M50,970 Q80,950 110,960" fill="none" stroke="#8B6914" stroke-width="1.5" opacity="0.3"/>
+  </g>
+  <use href="#hoaMai" transform="translate(60,940) scale(1.5)"/>
+  <use href="#hoaMai" transform="translate(100,870) scale(1.2)"/>
+  <use href="#hoaMaiSmall" transform="translate(110,960) scale(1.0)"/>
+  <use href="#hoaMaiSmall" transform="translate(30,1010) scale(1.1)"/>
+  <use href="#hoaDaoSmall" transform="translate(140,1000) scale(0.9)"/>
+  <use href="#hoaDaoSmall" transform="translate(80,1050) scale(0.8)"/>
+
+  <!-- ===== GÓC PHẢI DƯỚI - Hoa đào + mai ===== -->
+  <g opacity="0.4">
+    <path d="M1925,1080 Q1870,1000 1830,920 Q1815,880 1820,840" fill="none" stroke="#6B3A3A" stroke-width="2" opacity="0.4"/>
+    <path d="M1870,980 Q1840,960 1810,970" fill="none" stroke="#6B3A3A" stroke-width="1.5" opacity="0.3"/>
+  </g>
+  <use href="#hoaDao" transform="translate(1865,940) scale(1.4)"/>
+  <use href="#hoaDao" transform="translate(1825,870) scale(1.2)"/>
+  <use href="#hoaDaoSmall" transform="translate(1810,970) scale(1.0)"/>
+  <use href="#hoaDaoSmall" transform="translate(1890,1010) scale(0.9)"/>
+  <use href="#hoaMaiSmall" transform="translate(1780,1000) scale(0.8)"/>
+  <use href="#hoaMaiSmall" transform="translate(1850,1050) scale(0.9)"/>
+
+  <!-- ===== HOA RẢI RÁC GIỮA MÀN HÌNH ===== -->
+  <!-- Hoa mai rải nhẹ -->
+  <use href="#hoaMaiSmall" transform="translate(350,300) scale(0.7)" opacity="0.35"/>
+  <use href="#hoaMaiSmall" transform="translate(280,480) scale(0.55)" opacity="0.25"/>
+  <use href="#hoaMaiSmall" transform="translate(1600,400) scale(0.6)" opacity="0.3"/>
+  <use href="#hoaMaiSmall" transform="translate(1650,550) scale(0.5)" opacity="0.25"/>
+  <use href="#hoaMaiSmall" transform="translate(500,750) scale(0.6)" opacity="0.25"/>
+  <use href="#hoaMaiSmall" transform="translate(1400,700) scale(0.65)" opacity="0.3"/>
+
+  <!-- Hoa đào rải nhẹ -->
+  <use href="#hoaDaoSmall" transform="translate(400,200) scale(0.6)" opacity="0.3"/>
+  <use href="#hoaDaoSmall" transform="translate(1550,250) scale(0.55)" opacity="0.25"/>
+  <use href="#hoaDaoSmall" transform="translate(320,650) scale(0.5)" opacity="0.22"/>
+  <use href="#hoaDaoSmall" transform="translate(1500,600) scale(0.55)" opacity="0.25"/>
+  <use href="#hoaDaoSmall" transform="translate(650,450) scale(0.45)" opacity="0.2"/>
+  <use href="#hoaDaoSmall" transform="translate(1300,350) scale(0.5)" opacity="0.22"/>
+
+  <!-- ===== CÁNH HOA RƠI ===== -->
+  <!-- Cánh mai vàng -->
+  <ellipse cx="450" cy="450" rx="2" ry="4" fill="#FFD700" opacity="0.2" transform="rotate(30, 450, 450)"/>
+  <ellipse cx="900" cy="200" rx="1.8" ry="3.5" fill="#FFD700" opacity="0.15" transform="rotate(-20, 900, 200)"/>
+  <ellipse cx="1300" cy="350" rx="2.2" ry="4.2" fill="#FFD700" opacity="0.18" transform="rotate(45, 1300, 350)"/>
+  <ellipse cx="600" cy="600" rx="1.5" ry="3" fill="#FFD700" opacity="0.15" transform="rotate(-35, 600, 600)"/>
+  <ellipse cx="1100" cy="800" rx="2" ry="3.8" fill="#FFD700" opacity="0.2" transform="rotate(15, 1100, 800)"/>
+  <ellipse cx="250" cy="700" rx="1.8" ry="3.5" fill="#FFD700" opacity="0.17" transform="rotate(55, 250, 700)"/>
+  <ellipse cx="1550" cy="250" rx="1.5" ry="3.2" fill="#FFD700" opacity="0.15" transform="rotate(-40, 1550, 250)"/>
+  <ellipse cx="750" cy="350" rx="1.8" ry="3.5" fill="#FFD700" opacity="0.13" transform="rotate(25, 750, 350)"/>
+
+  <!-- Cánh đào hồng -->
+  <ellipse cx="520" cy="320" rx="2" ry="3.8" fill="#FFB7C5" opacity="0.18" transform="rotate(40, 520, 320)"/>
+  <ellipse cx="1050" cy="250" rx="1.8" ry="3.5" fill="#FFB7C5" opacity="0.15" transform="rotate(-25, 1050, 250)"/>
+  <ellipse cx="1450" cy="500" rx="2.2" ry="4" fill="#FFB7C5" opacity="0.17" transform="rotate(50, 1450, 500)"/>
+  <ellipse cx="380" cy="550" rx="1.6" ry="3.2" fill="#FFB7C5" opacity="0.14" transform="rotate(-30, 380, 550)"/>
+  <ellipse cx="850" cy="700" rx="1.8" ry="3.6" fill="#FFB7C5" opacity="0.16" transform="rotate(35, 850, 700)"/>
+  <ellipse cx="1250" cy="650" rx="2" ry="3.5" fill="#FFB7C5" opacity="0.15" transform="rotate(-45, 1250, 650)"/>
+  <ellipse cx="700" cy="150" rx="1.5" ry="3" fill="#FFB7C5" opacity="0.13" transform="rotate(20, 700, 150)"/>
+  <ellipse cx="1680" cy="450" rx="1.8" ry="3.4" fill="#FFB7C5" opacity="0.14" transform="rotate(-15, 1680, 450)"/>
+
+  <!-- ===== TRANG TRÍ VIỀN GÓC ===== -->
+  <path d="M0,0 Q100,25 25,100" fill="none" stroke="#DAA520" stroke-width="0.8" opacity="0.12"/>
+  <path d="M1920,0 Q1820,25 1895,100" fill="none" stroke="#DAA520" stroke-width="0.8" opacity="0.12"/>
+  <path d="M0,1080 Q100,1055 25,980" fill="none" stroke="#DAA520" stroke-width="0.8" opacity="0.12"/>
+  <path d="M1920,1080 Q1820,1055 1895,980" fill="none" stroke="#DAA520" stroke-width="0.8" opacity="0.12"/>
+</svg>

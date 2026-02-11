@@ -14,11 +14,11 @@
 :root {
     --gold: #FFD700;
     --gold-dark: #DAA520;
-    --red: #DC143C;
-    --red-dark: #8B0000;
-    --red-light: #FF4444;
+    --red: #B22234;
+    --red-dark: #6B1524;
+    --red-light: #D4475B;
     --bg-dark: rgba(0, 0, 0, 0.7);
-    --bg-panel: rgba(20, 0, 0, 0.85);
+    --bg-panel: rgba(45, 10, 15, 0.88);
     --text-light: #FFF8DC;
     --shadow-gold: 0 0 20px rgba(255, 215, 0, 0.5);
 }
@@ -26,8 +26,8 @@
 body {
     font-family: 'Be Vietnam Pro', sans-serif;
     min-height: 100vh;
-    background: #1a0000;
-    background-image: url('../assets/background.jpg');
+    background: #2B0A14;
+    background-image: url('../assets/background.svg');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -42,7 +42,7 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, rgba(139,0,0,0.6) 0%, rgba(0,0,0,0.4) 50%, rgba(139,0,0,0.6) 100%);
+    background: linear-gradient(135deg, rgba(107,21,36,0.3) 0%, rgba(43,10,20,0.2) 30%, rgba(139,69,19,0.1) 60%, rgba(107,21,36,0.25) 100%);
     z-index: 0;
     pointer-events: none;
 }
@@ -55,23 +55,20 @@ body::before {
     padding: 20px 20px 10px;
 }
 
-.header-logo {
-    height: 90px;
-    margin-bottom: 10px;
-    filter: drop-shadow(0 0 12px rgba(255, 215, 0, 0.4));
-}
+/* header-logo styled below in LOGO HIGHLIGHT section */
 
 .header h1 {
     font-size: 3rem;
     font-weight: 900;
     text-transform: uppercase;
-    background: linear-gradient(180deg, #FFD700 0%, #FFA500 50%, #FFD700 100%);
+    background: linear-gradient(135deg, #FFF2A8 0%, #FFD700 30%, #FFA500 60%, #FFD700 100%);
+    background-size: 200% 200%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    text-shadow: none;
-    filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
     letter-spacing: 3px;
+    padding: 4px 0;
+    animation: gradientShift 4s ease infinite;
 }
 
 .header .subtitle {
@@ -91,22 +88,21 @@ body::before {
     padding: 10px 0;
 }
 
-.stage-logo {
-    height: 70px;
-    filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.4));
-}
+/* stage-logo styled below in LOGO HIGHLIGHT section */
 
 .stage-title h1 {
     font-size: 2rem;
     font-weight: 900;
     text-transform: uppercase;
-    background: linear-gradient(180deg, #FFD700 0%, #FFA500 50%, #FFD700 100%);
+    background: linear-gradient(135deg, #FFF2A8 0%, #FFD700 30%, #FFA500 60%, #FFD700 100%);
+    background-size: 200% 200%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.4));
     letter-spacing: 2px;
     margin: 0;
+    padding: 3px 0;
+    animation: gradientShift 4s ease infinite;
 }
 
 .stage-title p {
@@ -331,10 +327,13 @@ body::before {
 }
 
 .prize-tab {
+    --tab-color: var(--gold);
+    --tab-color-light: #FFF2A8;
     padding: 12px 28px;
-    background: rgba(255, 255, 255, 0.08);
-    border: 2px solid rgba(255, 215, 0, 0.3);
-    border-radius: 30px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 2px solid rgba(255, 255, 255, 0.15);
+    border-left: 3px solid var(--tab-color);
+    border-radius: 12px;
     color: var(--text-light);
     font-family: inherit;
     font-size: 1.15rem;
@@ -342,23 +341,28 @@ body::before {
     cursor: pointer;
     transition: all 0.3s;
     position: relative;
+    backdrop-filter: blur(4px);
 }
 
 .prize-tab:hover {
-    border-color: var(--gold);
-    background: rgba(255, 215, 0, 0.15);
+    border-color: var(--tab-color);
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
 .prize-tab.active {
-    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
-    color: #1a0000;
-    border-color: var(--gold);
-    box-shadow: var(--shadow-gold);
+    background: rgba(255, 255, 255, 0.12);
+    color: var(--tab-color-light);
+    border: 2px solid var(--tab-color);
+    border-left: 4px solid var(--tab-color);
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.15), inset 0 0 20px rgba(255, 255, 255, 0.03);
 }
 
 .prize-tab.completed {
-    opacity: 0.5;
+    opacity: 0.4;
     text-decoration: line-through;
+    filter: grayscale(0.5);
 }
 
 .prize-tab .badge {
@@ -384,13 +388,18 @@ body::before {
 }
 
 .current-prize-label {
+    --prize-color: var(--gold);
+    --prize-color-light: #FFF2A8;
     font-size: 3.5rem;
     font-weight: 900;
-    color: var(--gold);
     text-transform: uppercase;
     margin-bottom: 25px;
-    text-shadow: 0 0 20px rgba(255, 215, 0, 0.6), 0 0 40px rgba(255, 215, 0, 0.3);
     letter-spacing: 5px;
+    padding: 6px 0;
+    background: linear-gradient(180deg, var(--prize-color-light) 0%, var(--prize-color) 45%, var(--prize-color-light) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .spinner-display {
@@ -502,7 +511,7 @@ body::before {
 
 .btn-spin {
     padding: 18px 60px;
-    background: linear-gradient(135deg, #FF0000 0%, #CC0000 50%, #FF0000 100%);
+    background: linear-gradient(135deg, #B22234 0%, #8B1A2B 50%, #B22234 100%);
     border: 3px solid var(--gold);
     border-radius: 50px;
     color: var(--gold);
@@ -513,7 +522,7 @@ body::before {
     letter-spacing: 5px;
     cursor: pointer;
     transition: all 0.3s;
-    box-shadow: 0 0 30px rgba(255, 0, 0, 0.5), var(--shadow-gold);
+    box-shadow: 0 0 30px rgba(178, 34, 52, 0.5), var(--shadow-gold);
     position: relative;
     overflow: hidden;
 }
@@ -536,7 +545,7 @@ body::before {
 
 .btn-spin:hover {
     transform: scale(1.05);
-    box-shadow: 0 0 50px rgba(255, 0, 0, 0.7), 0 0 40px rgba(255, 215, 0, 0.7);
+    box-shadow: 0 0 50px rgba(178, 34, 52, 0.6), 0 0 40px rgba(255, 215, 0, 0.7);
 }
 
 .btn-spin:active {
@@ -610,11 +619,17 @@ body::before {
 }
 
 .result-group h3 {
+    --prize-color: var(--gold);
+    --prize-color-light: #FFF2A8;
     font-size: 1rem;
     font-weight: 700;
     margin-bottom: 10px;
     padding-bottom: 8px;
-    border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+    border-bottom: 1px solid rgba(255, 215, 0, 0.15);
+    background: linear-gradient(90deg, var(--prize-color-light) 0%, var(--prize-color) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .result-group .winner-item {
@@ -693,9 +708,9 @@ body::before {
     top: 15px;
     right: 15px;
     z-index: 100;
-    background: rgba(220, 20, 60, 0.3);
+    background: rgba(178, 34, 52, 0.3);
     border: 1px solid var(--red);
-    color: #ff6b6b;
+    color: #e8828a;
     padding: 8px 16px;
     border-radius: 8px;
     cursor: pointer;
@@ -706,7 +721,7 @@ body::before {
 }
 
 .btn-reset:hover {
-    background: rgba(220, 20, 60, 0.5);
+    background: rgba(178, 34, 52, 0.5);
 }
 
 /* Particles background */
@@ -746,6 +761,113 @@ body::before {
         opacity: 0;
         transform: translateY(-10vh) scale(1);
     }
+}
+
+/* ---- HOA MAI / HOA ĐÀO RƠI ---- */
+.petal {
+    position: absolute;
+    pointer-events: none;
+    opacity: 0;
+    animation: petalFall linear infinite;
+}
+
+.petal-mai {
+    width: 10px;
+    height: 10px;
+    background: radial-gradient(ellipse at center, #FFD700 0%, #DAA520 60%, transparent 100%);
+    border-radius: 50% 50% 50% 0;
+}
+
+.petal-dao {
+    width: 9px;
+    height: 12px;
+    background: radial-gradient(ellipse at center, #FFB7C5 0%, #FF8FAB 50%, transparent 100%);
+    border-radius: 50% 50% 50% 0;
+}
+
+.petal-mai-full {
+    width: 16px;
+    height: 16px;
+    background: none;
+    border-radius: 0;
+}
+
+.petal-mai-full::before,
+.petal-mai-full::after {
+    content: '';
+    position: absolute;
+}
+
+.petal-mai-full::before {
+    width: 6px;
+    height: 6px;
+    background: radial-gradient(circle, #FFA500 40%, #FFD700 100%);
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.petal-mai-full::after {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background:
+        radial-gradient(ellipse at 50% 20%, #FFD700 0%, #FFD700 35%, transparent 36%) no-repeat,
+        radial-gradient(ellipse at 80% 55%, #FFD700 0%, #FFD700 35%, transparent 36%) no-repeat,
+        radial-gradient(ellipse at 65% 90%, #FFD700 0%, #FFD700 35%, transparent 36%) no-repeat,
+        radial-gradient(ellipse at 35% 90%, #FFD700 0%, #FFD700 35%, transparent 36%) no-repeat,
+        radial-gradient(ellipse at 20% 55%, #FFD700 0%, #FFD700 35%, transparent 36%) no-repeat;
+    filter: drop-shadow(0 0 2px rgba(255, 215, 0, 0.4));
+}
+
+@keyframes petalFall {
+    0% {
+        opacity: 0;
+        transform: translateY(-5vh) translateX(0) rotate(0deg) scale(0.5);
+    }
+    5% {
+        opacity: 0.8;
+        transform: translateY(0) translateX(5px) rotate(20deg) scale(1);
+    }
+    25% {
+        transform: translateY(25vh) translateX(-15px) rotate(90deg) scale(1);
+    }
+    50% {
+        opacity: 0.7;
+        transform: translateY(50vh) translateX(20px) rotate(200deg) scale(0.95);
+    }
+    75% {
+        transform: translateY(75vh) translateX(-10px) rotate(300deg) scale(0.85);
+    }
+    95% {
+        opacity: 0.3;
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(105vh) translateX(15px) rotate(400deg) scale(0.7);
+    }
+}
+
+/* ---- LOGO HIGHLIGHT ---- */
+.header-logo {
+    height: 90px;
+    margin-bottom: 10px;
+    filter: drop-shadow(0 0 12px rgba(255, 215, 0, 0.4));
+    background: rgba(255, 255, 255, 0.92);
+    padding: 8px 18px;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.15), 0 2px 8px rgba(0,0,0,0.3);
+}
+
+.stage-logo {
+    height: 70px;
+    filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.4));
+    background: rgba(255, 255, 255, 0.92);
+    padding: 6px 14px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.12), 0 2px 6px rgba(0,0,0,0.3);
 }
 
 /* Sound toggle */
@@ -796,6 +918,16 @@ body::before {
     .btn-spin {
         font-size: 2.2rem;
         padding: 22px 80px;
+    }
+    .congrats-single-code {
+        font-size: 5.5rem;
+    }
+    .congrats-single-name {
+        font-size: 3.5rem;
+    }
+    .congrats-card-single {
+        max-width: 850px;
+        padding: 60px 80px;
     }
 }
 
@@ -857,4 +989,394 @@ body::before {
 
 @keyframes spin {
     100% { transform: rotate(360deg); }
+}
+
+/* ---- CONGRATULATIONS POPUP ---- */
+.congrats-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: popupFadeIn 0.3s ease;
+}
+
+.congrats-popup.closing {
+    animation: popupFadeOut 0.5s ease forwards;
+}
+
+.congrats-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+}
+
+.congrats-card {
+    position: relative;
+    background: linear-gradient(145deg, #1E0A10 0%, #2B1018 50%, #1E0A10 100%);
+    border: 3px solid var(--gold);
+    border-radius: 24px;
+    padding: 40px 60px;
+    text-align: center;
+    box-shadow: 0 0 60px rgba(255, 215, 0, 0.4), 0 0 120px rgba(178, 34, 52, 0.2);
+    animation: cardBounceIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    max-width: 600px;
+    width: 90%;
+}
+
+.congrats-emoji {
+    font-size: 4rem;
+    margin-bottom: 10px;
+    animation: emojiPulse 1s infinite;
+}
+
+.congrats-title {
+    font-size: 2.5rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, #FFF2A8 0%, #FFD700 40%, #FFA500 60%, #FFD700 100%);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 8px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    animation: gradientShift 3s ease infinite;
+}
+
+@keyframes gradientShift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+.congrats-prize {
+    --prize-color: var(--gold);
+    --prize-color-light: #FFF2A8;
+    font-size: 1.8rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    margin-bottom: 25px;
+    padding: 4px 0;
+    background: linear-gradient(180deg, var(--prize-color-light) 0%, var(--prize-color) 45%, var(--prize-color-light) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.congrats-winners-list {
+    margin: 15px 0 25px;
+    max-height: 50vh;
+    overflow-y: auto;
+}
+
+.congrats-winner-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 10px 20px;
+    margin: 6px 0;
+    background: rgba(255, 215, 0, 0.08);
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    border-radius: 10px;
+}
+
+.congrats-item-code {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: var(--gold);
+    letter-spacing: 2px;
+    min-width: 100px;
+}
+
+.congrats-item-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #FFFFFF;
+}
+
+/* ---- POPUP QUAY ĐƠN (1 người) ---- */
+.congrats-card-single {
+    max-width: 700px;
+    padding: 50px 60px;
+}
+
+.congrats-single-winner {
+    margin: 25px 0 35px;
+}
+
+.congrats-single-code {
+    font-size: 4.5rem;
+    font-weight: 900;
+    color: var(--gold);
+    letter-spacing: 8px;
+    text-shadow: 0 0 30px rgba(255, 215, 0, 0.6), 0 0 60px rgba(255, 215, 0, 0.3);
+    line-height: 1.2;
+    animation: winnerGlow 1.5s ease-in-out infinite alternate;
+}
+
+.congrats-single-name {
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: #FFFFFF;
+    margin-top: 15px;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+    letter-spacing: 2px;
+    line-height: 1.3;
+}
+
+@keyframes winnerGlow {
+    0% { text-shadow: 0 0 30px rgba(255, 215, 0, 0.6), 0 0 60px rgba(255, 215, 0, 0.3); }
+    100% { text-shadow: 0 0 40px rgba(255, 215, 0, 0.8), 0 0 80px rgba(255, 215, 0, 0.4); }
+}
+
+.congrats-close {
+    background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold) 100%);
+    border: none;
+    border-radius: 30px;
+    color: #1a0000;
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 700;
+    padding: 10px 40px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.congrats-close:hover {
+    transform: scale(1.05);
+    box-shadow: var(--shadow-gold);
+}
+
+@keyframes popupFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes popupFadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+@keyframes cardBounceIn {
+    0% { transform: scale(0.3); opacity: 0; }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes emojiPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+}
+
+/* ---- MOBILE RESPONSIVE ---- */
+@media (max-width: 768px) {
+    .header h1 {
+        font-size: 1.8rem;
+        letter-spacing: 1px;
+    }
+
+    .header .subtitle {
+        font-size: 0.85rem;
+    }
+
+    .header-logo {
+        height: 60px;
+        padding: 5px 12px;
+    }
+
+    .setup-panel {
+        margin: 10px;
+        padding: 15px;
+    }
+
+    .setup-panel h2 {
+        font-size: 1.1rem;
+    }
+
+    .upload-area {
+        padding: 20px;
+    }
+
+    .prize-row {
+        flex-wrap: wrap;
+    }
+
+    .prize-row input[type="text"] {
+        flex: 1 1 100%;
+    }
+
+    .btn-start {
+        font-size: 1rem;
+        padding: 14px;
+        letter-spacing: 2px;
+    }
+
+    /* Main stage mobile */
+    .main-stage {
+        padding: 10px;
+    }
+
+    .stage-header {
+        gap: 10px;
+        margin-bottom: 10px;
+    }
+
+    .stage-logo {
+        height: 45px;
+        padding: 4px 10px;
+    }
+
+    .stage-title h1 {
+        font-size: 1.2rem;
+        letter-spacing: 1px;
+    }
+
+    .stage-title p {
+        font-size: 0.75rem;
+    }
+
+    .prize-tabs {
+        gap: 5px;
+        margin-bottom: 15px;
+    }
+
+    .prize-tab {
+        padding: 8px 14px;
+        font-size: 0.85rem;
+    }
+
+    .current-prize-label {
+        font-size: 2rem;
+        margin-bottom: 15px;
+        letter-spacing: 2px;
+    }
+
+    .spinner-display {
+        gap: 3px;
+        margin: 15px 0;
+    }
+
+    .digit-slot {
+        width: 42px;
+        height: 58px;
+        border-width: 2px;
+        border-radius: 8px;
+    }
+
+    .digit-reel .digit {
+        height: 58px;
+        font-size: 1.8rem;
+    }
+
+    .spinner-container {
+        margin: 15px 0;
+    }
+
+    .winner-reveal .winner-code {
+        font-size: 2rem;
+        letter-spacing: 3px;
+    }
+
+    .winner-reveal .winner-name {
+        font-size: 1rem;
+    }
+
+    .btn-spin-container {
+        margin: 15px 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .btn-spin {
+        font-size: 1.2rem;
+        padding: 14px 40px;
+        letter-spacing: 3px;
+    }
+
+    .btn-spin-all {
+        margin-left: 0;
+        font-size: 0.9rem;
+    }
+
+    .results-panel {
+        padding: 15px;
+        margin-top: 15px;
+    }
+
+    .results-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .result-group .winner-item {
+        font-size: 0.95rem;
+    }
+
+    .btn-back, .btn-reset {
+        font-size: 0.8rem;
+        padding: 6px 12px;
+    }
+
+    .fullscreen-hint {
+        display: none;
+    }
+
+    /* Popup mobile */
+    .congrats-card {
+        padding: 25px 20px;
+    }
+
+    .congrats-emoji {
+        font-size: 3rem;
+    }
+
+    .congrats-title {
+        font-size: 1.6rem;
+        letter-spacing: 4px;
+    }
+
+    .congrats-prize {
+        font-size: 1.3rem;
+    }
+
+    .congrats-winner-item {
+        padding: 8px 12px;
+        gap: 8px;
+    }
+
+    .congrats-item-code {
+        font-size: 1rem;
+        min-width: 80px;
+    }
+
+    .congrats-item-name {
+        font-size: 0.95rem;
+    }
+
+    /* Popup single mobile */
+    .congrats-card-single {
+        padding: 25px 20px;
+    }
+
+    .congrats-single-code {
+        font-size: 2.5rem;
+        letter-spacing: 4px;
+    }
+
+    .congrats-single-name {
+        font-size: 1.6rem;
+        margin-top: 10px;
+    }
 }
