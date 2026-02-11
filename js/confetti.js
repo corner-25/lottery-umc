@@ -16,7 +16,7 @@ class ConfettiManager {
         ConfettiManager.canvas = document.createElement('canvas');
         ConfettiManager.canvas.style.cssText = `
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 9999; pointer-events: none;
+            z-index: 999999; pointer-events: none;
         `;
         ConfettiManager.canvas.width = window.innerWidth;
         ConfettiManager.canvas.height = window.innerHeight;
@@ -54,7 +54,7 @@ class ConfettiManager {
     static launch(intensity = 'medium') {
         ConfettiManager.init();
 
-        const counts = { light: 150, medium: 300, heavy: 500 };
+        const counts = { light: 120, medium: 240, heavy: 400 };
         const count = counts[intensity] || 300;
         const colors = [
             '#FFD700', '#FF6347', '#FF4500', '#FF1493', '#00FF7F',
@@ -108,13 +108,11 @@ class ConfettiManager {
             { x: window.innerWidth * 0.65, y: window.innerHeight * 0.2 },
             { x: window.innerWidth * 0.85, y: window.innerHeight * 0.28 },
             { x: window.innerWidth * 0.5, y: window.innerHeight * 0.35 },
-            { x: window.innerWidth * 0.25, y: window.innerHeight * 0.4 },
-            { x: window.innerWidth * 0.75, y: window.innerHeight * 0.38 },
         ];
 
         centerPoints.forEach((center, batchIdx) => {
             setTimeout(() => {
-                const particleCount = 100 + Math.floor(Math.random() * 40);
+                const particleCount = 80 + Math.floor(Math.random() * 30);
                 for (let i = 0; i < particleCount; i++) {
                     const angle = (Math.PI * 2 * i) / particleCount + Math.random() * 0.3;
                     const speed = 4 + Math.random() * 10;
@@ -148,12 +146,11 @@ class ConfettiManager {
     }
 
     static celebration() {
-        // Mega celebration - confetti rain + fireworks waves
+        // Mega celebration - confetti rain + fireworks waves (bớt 20%)
         ConfettiManager.launch('heavy');
         setTimeout(() => ConfettiManager.fireworks(), 300);
-        setTimeout(() => ConfettiManager.launch('heavy'), 1200);
+        setTimeout(() => ConfettiManager.launch('medium'), 1200);
         setTimeout(() => ConfettiManager.fireworks(), 2000);
-        setTimeout(() => ConfettiManager.launch('medium'), 3000);
     }
 
     static _animate() {

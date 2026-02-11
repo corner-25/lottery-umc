@@ -57,11 +57,12 @@ const App = {
 
     // Default prizes
     defaultPrizes: [
-        { name: 'Giải Nhất', count: 3, color: '#FFD700', colorLight: '#FFF2A8' },
-        { name: 'Giải Nhì', count: 4, color: '#D4D4D4', colorLight: '#F0F0F0' },
-        { name: 'Giải Ba', count: 2, color: '#DBA368', colorLight: '#F0CCA0' },
-        { name: 'Giải Tư', count: 5, color: '#8FBF9F', colorLight: '#C2E8D0' },
-        { name: 'Giải Khuyến Khích', count: 5, color: '#8BB8D9', colorLight: '#C0DDEF' },
+        { name: 'MÃ ĐÁO THÀNH CÔNG', count: 3, color: '#FFD700', colorLight: '#FFF2A8', description: 'Apple Airpods 4', image: 'assets/prizes/giai-nhat.png' },
+        { name: 'VẠN SỰ HANH THÔNG', count: 3, color: '#D4D4D4', colorLight: '#F0F0F0', description: 'Máy lọc không khí Philips', image: 'assets/prizes/giai-nhi.png' },
+        { name: 'AN KHANG THỊNH VƯỢNG', count: 4, color: '#DBA368', colorLight: '#F0CCA0', description: 'Máy massage cổ vai gáy Philips', image: 'assets/prizes/giai-ba.png' },
+        { name: 'KHAI XUÂN PHÚ QUÝ', count: 4, color: '#8FBF9F', colorLight: '#C2E8D0', description: 'Bộ ấm trà Minh Long', image: 'assets/prizes/giai-tu.png' },
+        { name: 'THUẬN BUỒM XUÔI GIÓ', count: 5, color: '#C9A86C', colorLight: '#E8D5A8', description: 'Chuột không dây', image: 'assets/prizes/giai-nam.png' },
+        { name: 'TÂN XUÂN NHƯ Ý', count: 5, color: '#8BB8D9', colorLight: '#C0DDEF', description: 'Set quà', image: 'assets/prizes/giai-kk.png' },
     ],
 
     // ---- INITIALIZATION ----
@@ -202,23 +203,20 @@ const App = {
         this.employees = [];
         this.employeeNames = {};
 
-        // Try to detect header row
-        const firstRow = data[0];
+        // Mặc định: cột A (0) = mã, cột B (1) = tên, không header
         let codeColIndex = 0;
-        let nameColIndex = -1;
+        let nameColIndex = 1;
         let startRow = 0;
 
-        // Check if first row is header
+        // Chỉ skip header nếu dòng đầu chứa keyword header rõ ràng
+        const firstRow = data[0];
         if (firstRow && typeof firstRow[0] === 'string') {
-            const headers = firstRow.map(h => String(h).toLowerCase().trim());
-            const codeHeaders = ['mã nhân viên', 'ma nhan vien', 'mã nv', 'manv', 'ma_nv', 'code', 'employee_id', 'id', 'mã', 'ma', 'stt'];
-            const nameHeaders = ['họ tên', 'ho ten', 'tên', 'ten', 'name', 'hoten', 'fullname', 'họ và tên'];
-
-            headers.forEach((h, i) => {
-                if (codeHeaders.some(ch => h.includes(ch))) codeColIndex = i;
-                if (nameHeaders.some(nh => h.includes(nh))) nameColIndex = i;
-            });
-            startRow = 1;
+            const headerKeywords = ['mã nhân viên', 'ma nhan vien', 'mã nv', 'manv', 'ma_nv', 'code', 'employee_id', 'họ tên', 'ho ten', 'name', 'fullname', 'họ và tên', 'stt'];
+            const firstCell = String(firstRow[0]).toLowerCase().trim();
+            const isHeader = headerKeywords.some(kw => firstCell.includes(kw));
+            if (isHeader) {
+                startRow = 1;
+            }
         }
 
         for (let i = startRow; i < data.length; i++) {
@@ -228,7 +226,7 @@ const App = {
             const code = String(row[codeColIndex]).trim();
             if (code && code !== '' && code !== 'undefined') {
                 this.employees.push(code);
-                if (nameColIndex >= 0 && row[nameColIndex]) {
+                if (row[nameColIndex]) {
                     this.employeeNames[code] = String(row[nameColIndex]).trim();
                 }
             }
@@ -408,6 +406,19 @@ const App = {
         label.textContent = prize.name;
         label.style.setProperty('--prize-color', prize.color);
         label.style.setProperty('--prize-color-light', prize.colorLight || prize.color);
+
+        // Update prize showcase (image + description)
+        const showcase = document.getElementById('prizeShowcase');
+        const prizeImg = document.getElementById('prizeImage');
+        const prizeDesc = document.getElementById('prizeDescription');
+        if (prize.image) {
+            prizeImg.src = prize.image;
+            prizeImg.style.display = 'block';
+        } else {
+            prizeImg.style.display = 'none';
+        }
+        prizeDesc.textContent = prize.description || '';
+        showcase.style.display = (prize.image || prize.description) ? 'flex' : 'none';
 
         // Update buttons
         const allDone = remaining <= 0;
@@ -601,6 +612,7 @@ const App = {
     },
 
     // Popup chúc mừng cho 1 người (quay đơn) - layout lớn, nổi bật
+    // Tên ẩn mặc định, có nút hiển thị tên + Công nhận / Huỷ giải
     showCongratsPopup(code, prize) {
         const existing = document.getElementById('congratsPopup');
         if (existing) existing.remove();
@@ -610,24 +622,62 @@ const App = {
         popup.id = 'congratsPopup';
         popup.className = 'congrats-popup';
 
+        const prizeImgHtml = prize.image ? `<img class="congrats-prize-image" src="${prize.image}" alt="${prize.description || prize.name}">` : '';
+        const prizeDescHtml = prize.description ? `<div class="congrats-prize-desc">${prize.description}</div>` : '';
+
         popup.innerHTML = `
             <div class="congrats-overlay"></div>
             <div class="congrats-card congrats-card-single">
                 <div class="congrats-emoji">🎉</div>
                 <div class="congrats-title">CHÚC MỪNG!</div>
                 <div class="congrats-prize" style="--prize-color:${prize.color};--prize-color-light:${prize.colorLight || prize.color}">${prize.name}</div>
+                ${prizeImgHtml}
+                ${prizeDescHtml}
                 <div class="congrats-single-winner">
                     <div class="congrats-single-code">${code}</div>
-                    ${name ? `<div class="congrats-single-name">${name}</div>` : ''}
+                    ${name ? `<div class="congrats-single-name congrats-name-hidden" id="singleWinnerName">${name}</div>` : ''}
+                    ${name ? `<button class="congrats-btn-reveal" id="btnRevealName">👁 Hiển thị tên</button>` : ''}
                 </div>
-                <button class="congrats-close" onclick="document.getElementById('congratsPopup').remove()">Đóng</button>
+                <div class="congrats-actions">
+                    <button class="congrats-btn-confirm" id="btnConfirmPrize">Công nhận giải</button>
+                    <button class="congrats-btn-revoke" id="btnRevokePrize">Huỷ giải</button>
+                </div>
             </div>
         `;
 
         document.body.appendChild(popup);
+
+        // Bắn pháo hoa khi popup hiện
+        const prizeIndex = this.prizes.indexOf(prize);
+        if (prizeIndex === 0) {
+            ConfettiManager.celebration();
+        } else if (prizeIndex <= 1) {
+            ConfettiManager.fireworks();
+        } else {
+            ConfettiManager.launch('medium');
+        }
+
+        // Nút hiển thị tên
+        const btnReveal = document.getElementById('btnRevealName');
+        if (btnReveal) {
+            btnReveal.addEventListener('click', () => {
+                document.getElementById('singleWinnerName').classList.remove('congrats-name-hidden');
+                btnReveal.style.display = 'none';
+            });
+        }
+
+        document.getElementById('btnConfirmPrize').addEventListener('click', () => {
+            popup.remove();
+        });
+
+        document.getElementById('btnRevokePrize').addEventListener('click', () => {
+            this.revokeWinner(code, prize.name);
+            popup.remove();
+        });
     },
 
     // Popup chúc mừng cho nhiều người (quay hết giải) - layout danh sách
+    // Tên ẩn mặc định, có nút reveal từng người + huỷ từng người
     showCongratsPopupAll(winners, prize) {
         const existing = document.getElementById('congratsPopup');
         if (existing) existing.remove();
@@ -636,14 +686,20 @@ const App = {
         popup.id = 'congratsPopup';
         popup.className = 'congrats-popup';
 
-        let winnersHtml = winners.map(code => {
+        let winnersHtml = winners.map((code, idx) => {
             const name = this.employeeNames[code] || '';
-            const nameDisplay = name ? `<span class="congrats-item-name">${name}</span>` : '';
-            return `<div class="congrats-winner-item">
+            const nameHidden = name ? `<span class="congrats-item-name congrats-name-hidden" id="itemName_${idx}">${name}</span>` : '';
+            const revealBtn = name ? `<button class="congrats-item-reveal" data-idx="${idx}" title="Hiển thị tên">👁</button>` : '';
+            return `<div class="congrats-winner-item" id="winnerItem_${idx}">
                 <span class="congrats-item-code">${code}</span>
-                ${nameDisplay}
+                ${nameHidden}
+                ${revealBtn}
+                <button class="congrats-item-revoke" data-code="${code}" data-prize="${prize.name}" title="Huỷ giải">✕</button>
             </div>`;
         }).join('');
+
+        const prizeImgHtml = prize.image ? `<img class="congrats-prize-image congrats-prize-image-sm" src="${prize.image}" alt="${prize.description || prize.name}">` : '';
+        const prizeDescHtml = prize.description ? `<div class="congrats-prize-desc">${prize.description}</div>` : '';
 
         popup.innerHTML = `
             <div class="congrats-overlay"></div>
@@ -651,12 +707,71 @@ const App = {
                 <div class="congrats-emoji">🎉</div>
                 <div class="congrats-title">CHÚC MỪNG!</div>
                 <div class="congrats-prize" style="--prize-color:${prize.color};--prize-color-light:${prize.colorLight || prize.color}">${prize.name}</div>
+                ${prizeImgHtml}
+                ${prizeDescHtml}
                 <div class="congrats-winners-list">${winnersHtml}</div>
                 <button class="congrats-close" onclick="document.getElementById('congratsPopup').remove()">Đóng</button>
             </div>
         `;
 
         document.body.appendChild(popup);
+
+        // Bắn pháo hoa khi popup hiện
+        const prizeIndex = this.prizes.indexOf(prize);
+        if (prizeIndex === 0) {
+            ConfettiManager.celebration();
+        } else if (prizeIndex <= 1) {
+            ConfettiManager.fireworks();
+        } else {
+            ConfettiManager.launch('medium');
+        }
+
+        // Gắn event cho nút hiển thị tên từng người
+        popup.querySelectorAll('.congrats-item-reveal').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const idx = e.target.dataset.idx;
+                const nameEl = document.getElementById('itemName_' + idx);
+                if (nameEl) {
+                    nameEl.classList.remove('congrats-name-hidden');
+                }
+                e.target.style.display = 'none';
+            });
+        });
+
+        // Gắn event cho nút huỷ từng người
+        popup.querySelectorAll('.congrats-item-revoke').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const code = e.target.dataset.code;
+                const prizeName = e.target.dataset.prize;
+                this.revokeWinner(code, prizeName);
+                const item = e.target.closest('.congrats-winner-item');
+                item.classList.add('revoked');
+                e.target.disabled = true;
+                e.target.textContent = 'Đã huỷ';
+                // Ẩn nút reveal nếu có
+                const revealBtn = item.querySelector('.congrats-item-reveal');
+                if (revealBtn) revealBtn.style.display = 'none';
+            });
+        });
+    },
+
+    // Huỷ giải: bỏ người trúng ra khỏi kết quả, cho quay lại
+    revokeWinner(code, prizeName) {
+        // Bỏ khỏi results
+        if (this.results[prizeName]) {
+            const idx = this.results[prizeName].indexOf(code);
+            if (idx > -1) {
+                this.results[prizeName].splice(idx, 1);
+            }
+        }
+
+        // Bỏ khỏi wonEmployees để có thể quay lại
+        this.wonEmployees.delete(code);
+
+        // Cập nhật UI
+        this.renderPrizeTabs();
+        this.renderResults();
+        this.selectPrize(this.currentPrizeIndex);
     },
 
     moveToNextPrize() {
