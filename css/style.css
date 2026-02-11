@@ -334,7 +334,7 @@ body::before {
     border: 2px solid rgba(255, 255, 255, 0.15);
     border-left: 3px solid var(--tab-color);
     border-radius: 12px;
-    color: var(--text-light);
+    color: var(--gold);
     font-family: inherit;
     font-size: 1.15rem;
     font-weight: 700;
@@ -342,6 +342,7 @@ body::before {
     transition: all 0.3s;
     position: relative;
     backdrop-filter: blur(4px);
+    text-shadow: 0 0 8px rgba(255, 215, 0, 0.3);
 }
 
 .prize-tab:hover {
@@ -388,18 +389,17 @@ body::before {
 }
 
 .current-prize-label {
-    --prize-color: var(--gold);
-    --prize-color-light: #FFF2A8;
     font-size: 3.5rem;
     font-weight: 900;
     text-transform: uppercase;
     margin-bottom: 25px;
     letter-spacing: 5px;
     padding: 6px 0;
-    background: linear-gradient(180deg, var(--prize-color-light) 0%, var(--prize-color) 45%, var(--prize-color-light) 100%);
+    background: linear-gradient(180deg, #FFF2A8 0%, #FFD700 45%, #FFF2A8 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.4));
 }
 
 /* Prize showcase - hiển thị hình + mô tả giải thưởng */
@@ -1114,7 +1114,7 @@ body::before {
 }
 
 .congrats-prize {
-    --prize-color: var(--gold);
+    --prize-color: #FFD700;
     --prize-color-light: #FFF2A8;
     font-size: 1.8rem;
     font-weight: 900;
@@ -1122,7 +1122,8 @@ body::before {
     letter-spacing: 4px;
     margin-bottom: 25px;
     padding: 4px 0;
-    background: linear-gradient(180deg, var(--prize-color-light) 0%, var(--prize-color) 45%, var(--prize-color-light) 100%);
+    filter: drop-shadow(0 0 6px rgba(255, 215, 0, 0.4));
+    background: linear-gradient(180deg, #FFF2A8 0%, #FFD700 45%, #FFF2A8 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
